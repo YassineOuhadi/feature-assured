@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["URL"],
+  "properties": {
+    "URL": { "type": "string" },
+    "HEADERS": { "type": "object" },
+    "QUERIES": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["QUERY"],
+          "properties": {
+            "QUERY": { "type": "string" },
+            "VARIABLES": { "type": "object" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "MUTATIONS": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["MUTATION"],
+          "properties": {
+            "MUTATION": { "type": "string" },
+            "VARIABLES": { "type": "object" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

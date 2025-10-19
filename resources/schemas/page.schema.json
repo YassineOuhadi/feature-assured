@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["URL"],
+  "properties": {
+    "URL": { "type": "string" },
+    "MENU": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["SELECTOR", "ITEMS"],
+          "properties": {
+            "SELECTOR": { "$ref": "#/definitions/CyCommandDef" },
+            "ITEMS": {
+              "type": "object",
+              "patternProperties": {
+                ".*": { "$ref": "#/definitions/CyCommandDef" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "FORM": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["SELECTOR", "FIELDS", "BUTTONS"],
+          "properties": {
+            "SELECTOR": { "$ref": "#/definitions/CyCommandDef" },
+            "FIELDS": {
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "type": "object",
+                  "required": ["SELECTOR", "entry"],
+                  "properties": {
+                    "SELECTOR": { "$ref": "#/definitions/CyCommandDef" },
+                    "entry": { "type": "array", "items": { "type": "string" } },
+                    "isOptional": { "type": "boolean" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "BUTTONS": {
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "type": "object",
+                  "required": ["SELECTOR"],
+                  "properties": {
+                    "SELECTOR": { "$ref": "#/definitions/CyCommandDef" },
+                    "type": { "type": "string" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "BUTTONS": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "required": ["SELECTOR"],
+          "properties": {
+            "SELECTOR": { "$ref": "#/definitions/CyCommandDef" },
+            "type": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "CyCommandDef": {
+      "type": "object",
+      "required": ["cmd", "args"],
+      "properties": {
+        "cmd": { "type": "string" },
+        "args": { "type": "array", "items": { "type": ["string", "number", "boolean"] } }
+      },
+      "additionalProperties": false
+    }
+  }
+}

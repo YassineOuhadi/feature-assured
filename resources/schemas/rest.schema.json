@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["BASE_URL"],
+  "properties": {
+    "BASE_URL": { "type": "string" },
+    "HEADERS": { "type": "object" },
+    "ENDPOINTS": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "METHOD": { "enum": ["GET", "POST", "PUT", "DELETE"] },
+            "HEADERS": { "type": "object" },
+            "BODY_TEMPLATE": { "type": "object" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
