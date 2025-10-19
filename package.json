@@ -1,0 +1,245 @@
+{
+  "name": "feature-assured",
+  "displayName": "Feature Assured",
+  "description": "VS Code extension for running and validating Cypress .feature files",
+  "version": "0.0.1",
+  "publisher": "yassine-ouhadi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YassineOuhadi/feature-assured.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "keywords": [
+    "cypress",
+    "cucumber",
+    "bdd",
+    "automation",
+    "testing",
+    "feature",
+    "qa",
+    "step-library"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "icon": "resources/feature_assured.png",
+  "changelog": "CHANGELOG.md",
+  "license": "MIT",
+  "homepage": "https://github.com/YassineOuhadi/feature-assured",
+  "bugs": {
+    "url": "https://github.com/YassineOuhadi/feature-assured/issues"
+  },
+  "files": [
+    "out/",
+    "resources/"
+  ],
+  "activationEvents": [
+    "onLanguage:feature"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "feature-assured-schema-json",
+        "aliases": [
+          "Schema JSON"
+        ],
+        "extensions": [
+          ".schema.json"
+        ]
+      }
+    ],
+    "icons": [
+      {
+        "icon": "resources/feature_assured.png",
+        "extensions": [
+          ".schema.json"
+        ]
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "featureAssured",
+          "title": "Feature Assured",
+          "icon": "resources/feature_assured.png"
+        }
+      ]
+    },
+    "views": {
+      "featureAssured": [
+        {
+          "id": "validateFeature",
+          "name": "💠 Feature Validation"
+        },
+        {
+          "id": "featureSpecs",
+          "name": "📂 Specs Library"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "cypressGenericExplorer",
+          "name": "Feature Assured Explorer"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "cypressGenericExplorer",
+        "contents": "No Cypress Generic projects found.\n[Create examples](command:extension.showExamples)",
+        "when": "cypressGenericExplorerEmpty"
+      }
+    ],
+    "configuration": {
+      "title": "Cypress Generic Runner",
+      "properties": {
+        "feature-assured.pingTimeout": {
+          "type": "number",
+          "default": 5000,
+          "description": "Timeout (ms) for API ping",
+          "minimum": 1000,
+          "maximum": 30000
+        },
+        "feature-assured.retryCount": {
+          "type": "number",
+          "default": 2,
+          "description": "Number of ping retries",
+          "minimum": 0,
+          "maximum": 5
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "extension.pingApi",
+        "title": "Ping API",
+        "category": "Cypress Generic"
+      },
+      {
+        "command": "extension.pingEndpoint",
+        "title": "Ping Endpoint",
+        "category": "Cypress Generic"
+      },
+      {
+        "command": "featureAssured.openJsonFile",
+        "title": "Open JSON File"
+      },
+      {
+        "command": "extension.valideRegistry",
+        "title": "Validate"
+      },
+      {
+        "command": "featureAssured.addChildNode",
+        "title": "Add Child Node"
+      },
+      {
+        "command": "featureAssured.refresh",
+        "title": "Refresh Explorer",
+        "category": "Cypress Generic",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "extension.exportPingResults",
+        "title": "Export Ping Results",
+        "category": "Cypress Generic"
+      },
+      {
+        "command": "extension.openSchema",
+        "title": "Open JSON Schema",
+        "category": "Cypress Generic",
+        "icon": {
+          "light": "resources/light/schema.svg",
+          "dark": "resources/dark/schema.svg"
+        }
+      },
+      {
+        "command": "featureAssured.refreshSpecs",
+        "title": "Refresh Feature Specs"
+      },
+      {
+        "command": "featureAssured.validateFeature",
+        "title": "Validate Current Feature"
+      },
+      {
+        "command": "featureAssured.openProblems",
+        "title": "Open Problems Panel"
+      },
+      {
+        "command": "featureAssured.requestNewFeature",
+        "title": "Request New Feature",
+        "category": "Feature Assured"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "extension.exportPingResults",
+          "when": "view == cypressGenericExplorer && cypressGeneric.hasPingLogs",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.openSchema",
+          "when": "view == cypressGenericExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "featureAssured.requestNewFeature",
+          "when": "view == featureSpecs",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "featureAssured.refresh",
+          "when": "view == cypressGenericExplorer",
+          "group": "inline@1"
+        },
+        {
+          "command": "extension.pingApi",
+          "when": "view == cypressGenericExplorer && viewItem == serviceNode",
+          "group": "inline@z"
+        },
+        {
+          "command": "extension.pingEndpoint",
+          "when": "view == cypressGenericExplorer && viewItem == endpointNode",
+          "group": "inline@z"
+        },
+        {
+          "command": "featureAssured.addChildNode",
+          "when": "view == cypressGenericExplorer && (viewItem == menuNode || viewItem == formNode || viewItem == fieldNode || viewItem == buttonNode || viewItem == serviceNode || viewItem == endpointNode || viewItem == pageNode || viewItem == selectorNode)"
+        }
+      ]
+    },
+    "authentication": [
+      {
+        "id": "github",
+        "label": "GitHub"
+      }
+    ]
+  },
+  "scripts": {
+    "generate-schemas": "node scripts/generate-pom-schemas.ts",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "chokidar": "^4.0.3",
+    "octokit": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/ajv": "^0.0.5",
+    "@types/node": "^24.5.2",
+    "@types/vscode": "^1.80.0",
+    "@vscode/test-electron": "^2.3.0",
+    "typescript": "^5.9.2",
+    "typescript-json-schema": "^0.65.1"
+  }
+}

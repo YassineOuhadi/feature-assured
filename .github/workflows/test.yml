@@ -1,0 +1,35 @@
+name: Feature Assured Cypress Tests
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Build Feature Assured runner
+        run: |
+          docker build -t feature-assured:runner \
+            --build-arg MODE=runner \
+            -f .devcontainer/Dockerfile .
+
+      - name: Run Cypress tests
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}/cypress:/workspace/cypress" \
+            -v "${{ github.workspace }}/cypress/reports:/workspace/cypress/reports" \
+            -w /workspace \
+            feature-assured:runner \
+            npx cypress run --spec "cypress/e2e/features/**/*.feature"
+
+      - name: Upload Cypress reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-reports
+          path: cypress/reports/

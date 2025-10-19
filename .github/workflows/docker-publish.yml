@@ -1,0 +1,34 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - 'release/**'
+    # tags:
+    #   - 'v*.*.*'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: yassinouhadi/feature-assured
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build Docker images
+        run: |
+          docker build --build-arg MODE=runner -t $IMAGE_NAME:runner .
+          docker build --build-arg MODE=dev -t $IMAGE_NAME:dev .
+
+      - name: Push Docker images
+        run: |
+          docker push $IMAGE_NAME:runner
+          docker push $IMAGE_NAME:dev
