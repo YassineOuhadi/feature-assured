@@ -1,10 +1,12 @@
 # Feature Assured
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue)
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/yassine-ouhadi.feature-assured?color=blue)](https://marketplace.visualstudio.com/items?itemName=yassine-ouhadi.feature-assured)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![GitHub Actions](https://github.com/YassineOuhadi/feature-assured/workflows/CI/badge.svg)
+[![Docker Runner](https://img.shields.io/badge/docker-runner-blue)](https://hub.docker.com/r/yassineouhadi/feature-assured/tags?page=1&name=runner)
+[![Docker Dev](https://img.shields.io/badge/docker-dev-green)](https://hub.docker.com/r/yassineouhadi/feature-assured/tags?page=1&name=dev)
+[![NPM Package](https://img.shields.io/npm/v/@yassinouhadi/cypress-generic-package?color=orange)](https://www.npmjs.com/package/@yassinouhadi/cypress-generic-package)
 
-**Feature Assured** is a Visual Studio Code extension for running and validating Cypress `.feature` files using the [@yassinouhadi/cypress-generic-package](https://github.com/YassineOuhadi/cypress-generic-package).  
+**Feature Assured** is a Visual Studio Code extension for running and validating Cypress `.feature` files using the [@yassinouhadi/cypress-generic-package](https://www.npmjs.com/package/@yassinouhadi/cypress-generic-package).  
 
 It streamlines the Cucumber + Cypress workflow with **real-time validation**, **inline results**, and a **dynamic step explorer**, all within VS Code.
 
@@ -38,7 +40,7 @@ Designed for developers and QA engineers who:
 
 ## Setup Options
 
-Feature Assured can be used **two ways**:
+Feature Assured can be used **three ways**:
 
 ### 1. With npm
 
