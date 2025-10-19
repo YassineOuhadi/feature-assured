@@ -1,6 +1,0 @@
-node_modules/**
-.vscode/**
-scripts/**
-tsconfig.json
-README.md
-CHANGELOG.md
