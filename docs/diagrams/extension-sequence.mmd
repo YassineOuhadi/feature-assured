@@ -1,0 +1,21 @@
+sequenceDiagram
+  participant Dev as Developer (Editor)
+  participant Code as CodeLens / Command
+  participant Cmd as runFeature (src/run/runFeature.ts)
+  participant Term as TerminalManager (src/utils/terminalManager.ts)
+  participant Runner as Cypress Generic Runner (external)
+  participant FS as Report JSON (cypress/reports)
+  participant Decor as FeatureReportDecorator (src/editor/FeatureReportDecorator.ts)
+  participant Lens as FeatureReportCodeLensProvider (src/editor/FeatureReportCodeLensProvider.ts)
+  participant Diag as FeatureDiagnostics (src/editor/FeatureDiagnostics.ts)
+
+  Dev->>Code: Click "Run Feature" (CodeLens)
+  Code->>Cmd: execute featureAssured.runFeature
+  Cmd->>Term: spawn cypress (npx / docker) with feature spec
+  Term->>Runner: run feature (uses @yassinouhadi/cypress-generic-package)
+  Runner-->>FS: emit cucumber-report.json + screenshots
+  FS-->>Decor: file change event (chokidar)
+  Decor->>Lens: refresh features & regenerate CodeLenses
+  Decor->>Diag: update diagnostics (pass/fail, stack traces)
+  Lens->>Dev: show inline results & CodeLens actions
+  Diag->>Dev: populate Problems panel

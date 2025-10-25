@@ -1,0 +1,45 @@
+flowchart LR
+  subgraph Feature Assured Extension
+    A["activate() — src/extension.ts"]
+    B["runCLIAndExtractJSON — src/utils/runCLI.ts"]
+    C["FeatureSpecsProvider — src/editor/FeatureSpecsProvider.ts"]
+    D["ExplorerTreeProvider — src/editor/ExplorerTreeProvider.ts"]
+    E["createWatchers / watcherUtils — src/utils/watcherUtils.ts"]
+    F["FeatureDiagnostics — src/editor/FeatureDiagnostics.ts"]
+    G["FeatureCodeLensProvider — src/editor/FeatureCodeLensProvider.ts"]
+    H["FeatureReportCodeLensProvider — src/editor/FeatureReportCodeLensProvider.ts"]
+    I["FeatureReportDecorator — src/editor/FeatureReportDecorator.ts"]
+    J["initAllCommands — src/commands/index.ts"]
+    K["buildRegistryFileTypeMap — src/utils/registryUtils.ts"]
+    L["PageJsonCodeLensProvider / ServiceJsonCodeLensProvider — src/editor/*.ts"]
+    M["FeatureValidationProvider — src/editor/FeatureValidationProvider.ts"]
+    N["TerminalManager / FeatureRunner — src/utils/terminalManager.ts / src/utils/featureRunner.ts"]
+    O["schemaValidator / AJV — src/utils/schemaValidator.ts"]
+    P["registryUtils / reportUtils — src/utils/registryUtils.ts / src/utils/reportUtils.ts"]
+    Q["runFeature command — src/run/runFeature.ts"]
+    R["report view / screenshots — src/report"]
+  end
+
+  A --> B
+  B --> C
+  A --> D
+  A --> E
+  A --> F
+  A --> G
+  A --> H
+  A --> I
+  A --> J
+  A --> K
+  A --> L
+  F --> M
+  E --> D
+  D --> P
+  J --> N
+  N -->|spawns| ExternalCypress["Cypress Generic Runner (external)"]
+  ExternalCypress -->|writes| ReportFile["cypress/reports/json/cucumber-report.json"]
+  ReportFile -->|fs events| I
+  I --> H
+  I --> G
+  I --> F
+  C --> O
+  P --> O

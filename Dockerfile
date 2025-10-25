@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxkbcommon0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g cypress @yassinouhadi/cypress-generic-package@1.0.8
+RUN npm install -g cypress @yassinouhadi/cypress-generic-package@1.0.9
 
 ARG MODE=dev
 ARG PROJECT_NAME=feature-assured

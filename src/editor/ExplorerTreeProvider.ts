@@ -251,6 +251,15 @@ export class ExplorerTreeProvider implements vscode.TreeDataProvider<INodeItem> 
                 fs.writeFileSync(jsonPath, JSON.stringify(jsonContent, null, 2), 'utf-8');
                 vscode.window.showInformationMessage(`${type} '${name}' added to ${jsonPath}`);
                 this.refresh();
+
+                // auto refresh tree view - json schema
+                const parentJsonPath = path.join(this.workspaceRoot, 'cypress', 'e2e', element.tooltip!);
+                if (fs.existsSync(parentJsonPath)) {
+                    const content = fs.readFileSync(parentJsonPath, 'utf-8');
+                    const jsonContent = JSON.parse(content);
+                    element.children = this.flattenJson(jsonContent, undefined, element.tooltip);
+                    this._onDidChangeTreeData.fire(element);
+                }
             } catch (err) {
                 vscode.window.showErrorMessage("Failed to update JSON: " + err);
             }

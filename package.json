@@ -2,7 +2,7 @@
   "name": "feature-assured",
   "displayName": "Feature Assured",
   "description": "VS Code extension for running and validating Cypress .feature files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "yassine-ouhadi",
   "repository": {
     "type": "git",
@@ -77,6 +77,10 @@
         {
           "id": "featureSpecs",
           "name": "📂 Specs Library"
+        },
+        {
+          "id": "cypressGenericExplorer",
+          "name": "Feature Assured Explorer"
         }
       ],
       "explorer": [
@@ -224,7 +228,8 @@
     ]
   },
   "scripts": {
-    "generate-schemas": "node scripts/generate-pom-schemas.ts",
+    "generate:schemas": "node scripts/generate-pom-schemas.ts",
+    "generate:diagrams": "rm -f docs/diagrams/*.svg && for file in docs/diagrams/*.mmd; do npx mmdc -i \"$file\" -o \"${file%.mmd}.svg\"; done",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "package": "vsce package"
@@ -235,6 +240,7 @@
     "octokit": "^5.0.4"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
     "@types/ajv": "^0.0.5",
     "@types/node": "^24.5.2",
     "@types/vscode": "^1.80.0",

@@ -121,7 +121,7 @@ docker run -it --rm \
   -v "$(pwd)/cypress/reports:/workspace/cypress/reports" \
   -w /workspace \
   -e CYPRESS_ENV_FILE='cypress/env/examples.json' \
-  feature-assured:runner \
+  yassineouhadi/feature-assured:runner \
   npm run cy:run --spec "cypress/integration/**/*.feature"
 ```
 
@@ -140,7 +140,7 @@ Feature Assured works seamlessly with GitHub Actions to run tests automatically 
       -v "${{ github.workspace }}/cypress:/workspace/cypress" \
       -v "${{ github.workspace }}/cypress/reports:/workspace/cypress/reports" \
       -w /workspace \
-      feature-assured:runner \
+      yassineouhadi/feature-assured:runner \
       npx cypress run --spec "cypress/e2e/features/**/*.feature"
 ```
 

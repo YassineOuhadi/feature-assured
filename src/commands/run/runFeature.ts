@@ -23,7 +23,7 @@ export async function runFeatureCommand(
   const terminal = getFeatureAssuredTerminal();
   terminal.show();
   terminal.sendText(
-    `npm run cy:run -- --spec '${relativePath}'`
+    `npm run test:full -- --spec '${relativePath}'`
   );
 
   const reportPath = path.join(projectPath, 'cypress/reports/json/cucumber-report.json');

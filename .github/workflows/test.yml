@@ -15,7 +15,7 @@ jobs:
 
       - name: Build Feature Assured runner
         run: |
-          docker build -t feature-assured:runner \
+          docker build -t yassineouhadi/feature-assured:runner \
             --build-arg MODE=runner \
             -f .devcontainer/Dockerfile .
 
@@ -25,7 +25,7 @@ jobs:
             -v "${{ github.workspace }}/cypress:/workspace/cypress" \
             -v "${{ github.workspace }}/cypress/reports:/workspace/cypress/reports" \
             -w /workspace \
-            feature-assured:runner \
+            yassineouhadi/feature-assured:runner \
             npx cypress run --spec "cypress/e2e/features/**/*.feature"
 
       - name: Upload Cypress reports

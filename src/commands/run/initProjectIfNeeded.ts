@@ -9,6 +9,7 @@ export async function initProjectIfNeeded(workspaceFolders: readonly vscode.Work
   const projectPath = workspaceFolders[0].uri.fsPath;
   const envFolder = path.join(projectPath, 'cypress', 'env');
   const configFile = path.join(projectPath, 'cypress.config.js');
+  const packageJson = path.join(projectPath, 'package.json');
 
   if (fs.existsSync(envFolder) && fs.existsSync(configFile)) return true;
 
@@ -19,6 +20,11 @@ export async function initProjectIfNeeded(workspaceFolders: readonly vscode.Work
   );
 
   if (init === 'Init') {
+    if (!fs.existsSync(packageJson)) {
+      terminal.sendText(`npm init -y`);
+      terminal.sendText(`echo "npm project initialized"`);
+    }
+
     terminal.sendText(`npx feature-assured init`);
     terminal.show();
     return false; // project is now initializing

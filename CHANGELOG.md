@@ -4,6 +4,29 @@ All notable changes to the **Feature Assured** extension will be documented in t
 
 ---
 
+## [Unreleased]
+
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Fixed
+- N/A
+
+### To Do
+- [ ] Optimize Feature Assured runner and dev docker image sizes.  
+- [ ] Improve VS Code extension performance.
+
+---
+
+## [0.0.2] - 2025-10-26
+
+### ✨ Improvements & Fixes
+- 💡 Check for `npm init` before initializing a Feature Assured project.
+- 🛠 Fix `cy:full` command to run correctly with the library.
+
 ## [0.0.1] - 2025-10-19
 
 ### ✨ Initial Release

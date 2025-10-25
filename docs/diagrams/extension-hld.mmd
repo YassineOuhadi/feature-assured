@@ -1,0 +1,56 @@
+%% Clean, non-technical overview of how Feature Assured interacts with Cypress Generic, Docker, DevContainer and CI
+
+flowchart LR
+  subgraph Dev["Developer / QA"]
+    D["Workspace (.feature files, env)"]
+    R["Feature/Step Requests"]
+  end
+
+  subgraph VS["VS Code + Feature Assured (Extension)"]
+    V1["Design & edit .feature files"]
+    V2["Run feature (CodeLens)"]
+    V3["Inline results & Problems panel"]
+    V4["Request new steps & features"]
+  end
+
+  subgraph NPM["NPM dependency"]
+    N["@yassinouhadi/cypress-generic-package (shared step library)"]
+  end
+
+  subgraph DevCont["Local DevContainer"]
+    DC["feature-assured:dev (DevContainer image)"]
+  end
+
+  subgraph Docker["Docker images & Registry"]
+    ImgDev["feature-assured:dev (development image)"]
+    ImgRun["feature-assured:runner (runner image)"]
+    Reg["Docker Hub / Registry"]
+  end
+
+  subgraph CI["CI / GitHub Actions"]
+    CIJob["Jobs: build images, run tests publish reports & images"]
+    Art["Reports & Artifacts"]
+  end
+
+  D --> V1
+  V1 --> V2
+  V2 --> DC
+  V2 --> ImgRun
+  DC --> ImgDev
+  ImgDev --> Reg
+  ImgRun --> N
+  N --> ImgRun
+  ImgRun --> Art
+  Art --> V3
+  Reg --> CIJob
+  CIJob --> ImgRun
+  CIJob --> Art
+  V3 --> D
+  D --> V4
+  V4 --> R
+  R --> N
+
+  classDef group fill:#f8fbff,stroke:#0b66c3,stroke-width:1.5px;
+  class VS,DevCont,Docker,CI group;
+  classDef pkg fill:#f7fff4,stroke:#0b8a4b;
+  class N,R pkg;

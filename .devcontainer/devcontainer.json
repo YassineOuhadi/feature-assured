@@ -1,0 +1,22 @@
+{
+  "name": "Feature Assured Dev Container",
+  "image": "yassineouhadi/feature-assured:dev",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "extensions": [
+    "ms-azuretools.vscode-docker",
+    "ms-vscode.js-debug",
+    "dbaeumer.vscode-eslint"
+  ],
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "environment": {
+    "INTERACTIVE_MODE": "false",
+    "CYPRESS_CACHE_FOLDER": "/workspace/.cache/Cypress",
+    "DISPLAY": "${localEnv:DISPLAY}"
+  },
+  "remoteUser": "root"
+}
